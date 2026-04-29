@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aura Music | Premium Listening Experience</title>
+    <meta name="description" content="Experience music with Aura - the premium, glassmorphic music player.">
+    <!-- Google Fonts: Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar glass">
+            <div class="logo">
+                <i class="fas fa-wave-square"></i>
+                <span>AURA</span>
+            </div>
+            <nav class="nav-menu">
+                <a href="#" class="nav-item active"><i class="fas fa-home"></i> Home</a>
+                <a href="#" class="nav-item"><i class="fas fa-search"></i> Search</a>
+                <a href="#" class="nav-item"><i class="fas fa-book-open"></i> Library</a>
+            </nav>
+            <div class="playlist-section">
+                <h3>PLAYLISTS</h3>
+                <div class="playlist-list">
+                    <a href="#" class="playlist-item">Chill Vibes</a>
+                    <a href="#" class="playlist-item">Coding Session</a>
+                    <a href="#" class="playlist-item">Late Night</a>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="main-header">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search artists, songs, albums...">
+                </div>
+                <div class="user-profile">
+                    <span>Premium User</span>
+                    <div class="avatar"></div>
+                </div>
+            </header>
+
+            <section class="hero-section">
+                <div class="hero-card glass">
+                    <div class="hero-content">
+                        <span class="badge">FEATURED</span>
+                        <h1>Midnight Melodies</h1>
+                        <p>Dive into the deepest ambient sounds for late-night focus.</p>
+                        <button class="btn btn-primary">Listen Now</button>
+                    </div>
+                    <div class="hero-image"></div>
+                </div>
+            </section>
+
+            <section class="tracks-section">
+                <h2>Recently Played</h2>
+                <div class="track-grid" id="track-grid">
+                    <!-- Tracks will be injected by JS -->
+                </div>
+            </section>
+        </main>
+
+        <!-- Player Bar -->
+        <footer class="player-bar glass">
+            <div class="current-track">
+                <div class="track-info">
+                    <div class="track-img" id="current-track-img"></div>
+                    <div class="track-details">
+                        <h4 id="current-track-name">Select a track</h4>
+                        <p id="current-artist-name">Artist</p>
+                    </div>
+                </div>
+                <button class="btn-icon"><i class="far fa-heart"></i></button>
+            </div>
+
+            <div class="player-controls">
+                <div class="control-btns">
+                    <button class="btn-icon" id="prev-btn"><i class="fas fa-step-backward"></i></button>
+                    <button class="btn-icon play-btn" id="play-btn"><i class="fas fa-play"></i></button>
+                    <button class="btn-icon" id="next-btn"><i class="fas fa-step-forward"></i></button>
+                </div>
+                <div class="progress-container">
+                    <span id="current-time">0:00</span>
+                    <div class="progress-bar" id="progress-bar">
+                        <div class="progress-fill" id="progress-fill"></div>
+                    </div>
+                    <span id="total-time">0:00</span>
+                </div>
+            </div>
+
+            <div class="volume-controls">
+                <i class="fas fa-volume-up"></i>
+                <div class="volume-bar">
+                    <div class="volume-fill"></div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
