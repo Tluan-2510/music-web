@@ -47,7 +47,7 @@ export default function AiAssistant() {
     <div className="glass" style={{ padding: '20px', borderRadius: '16px', marginTop: '20px', border: 'var(--glass-border)' }}>
       <h3 style={{ marginBottom: '12px', color: 'var(--primary-accent)' }}>✨ AI DJ Assistant</h3>
       <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '16px' }}>
-        Tell me your mood and I'll spin the perfect track.
+        Tell me your mood and I&apos;ll spin the perfect track.
       </p>
       
       <form onSubmit={handleSubmit} style={{ display: 'flex', gap: '8px', marginBottom: '16px' }}>
