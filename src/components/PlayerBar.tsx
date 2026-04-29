@@ -1,7 +1,7 @@
 'use client';
 
 import { usePlayerStore } from '@/store/usePlayerStore';
-import { FaHeart, FaStepBackward, FaPlay, FaPause, FaStepForward, FaVolumeUp } from 'react-icons/fa';
+import { FaHeart, FaRegHeart, FaStepBackward, FaPlay, FaPause, FaStepForward, FaVolumeUp } from 'react-icons/fa';
 
 function formatTime(seconds: number) {
   if (!seconds || isNaN(seconds)) return "0:00";
@@ -12,8 +12,8 @@ function formatTime(seconds: number) {
 
 export default function PlayerBar() {
   const { 
-    tracks, currentTrackIndex, isPlaying, volume, progress, duration,
-    togglePlay, nextTrack, prevTrack, setVolume, setProgress
+    tracks, currentTrackIndex, isPlaying, volume, progress, duration, favorites,
+    togglePlay, nextTrack, prevTrack, setVolume, setProgress, toggleFavorite
   } = usePlayerStore();
 
   const currentTrack = tracks[currentTrackIndex];
@@ -44,6 +44,8 @@ export default function PlayerBar() {
 
   if (!currentTrack) return null;
 
+  const isFav = favorites.includes(currentTrack.id);
+
   return (
     <footer className="player-bar glass">
       <div className="current-track">
@@ -57,7 +59,9 @@ export default function PlayerBar() {
             <p>{currentTrack.artist}</p>
           </div>
         </div>
-        <button className="btn-icon"><FaHeart /></button>
+        <button className="btn-icon" onClick={() => toggleFavorite(currentTrack.id)}>
+          {isFav ? <FaHeart style={{ color: 'var(--primary-accent)' }} /> : <FaRegHeart />}
+        </button>
       </div>
 
       <div className="player-controls">
