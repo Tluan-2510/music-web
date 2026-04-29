@@ -46,56 +46,56 @@ export const usePlayerStore = create<PlayerStore>()(
           id: 0,
           name: "Neon Dreams",
           artist: "Stellar",
-          cover: "https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?w=300&h=300&fit=crop",
+          cover: "https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?w=300&h=300&fit=crop&auto=format",
           src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
         },
         {
           id: 1,
           name: "Lofi Nights",
           artist: "Chill Master",
-          cover: "https://images.unsplash.com/photo-1516280440614-37939bbacd81?w=300&h=300&fit=crop",
+          cover: "https://images.unsplash.com/photo-1516280440614-37939bbacd81?w=300&h=300&fit=crop&auto=format",
           src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
         },
         {
           id: 2,
           name: "Electric Sky",
           artist: "Nova",
-          cover: "https://images.unsplash.com/photo-1459749411177-042180ce673c?w=300&h=300&fit=crop",
+          cover: "https://images.unsplash.com/photo-1501630834273-4b5604d2ee31?w=300&h=300&fit=crop&auto=format",
           src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"
         },
         {
           id: 3,
           name: "Deep Ocean",
           artist: "Aquatic",
-          cover: "https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=300&h=300&fit=crop",
+          cover: "https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=300&h=300&fit=crop&auto=format",
           src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3"
         },
         {
           id: 4,
           name: "Mountain Echoes",
           artist: "Naturals",
-          cover: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=300&h=300&fit=crop",
+          cover: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=300&h=300&fit=crop&auto=format",
           src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3"
         },
         {
           id: 5,
           name: "City Lights",
           artist: "Urban Beats",
-          cover: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=300&h=300&fit=crop",
+          cover: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=300&h=300&fit=crop&auto=format",
           src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3"
         },
         {
           id: 6,
           name: "Desert Wind",
           artist: "Sandstorm",
-          cover: "https://images.unsplash.com/photo-1473580044384-7ba9967e16a0?w=300&h=300&fit=crop",
+          cover: "https://images.unsplash.com/photo-1473580044384-7ba9967e16a0?w=300&h=300&fit=crop&auto=format",
           src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3"
         },
         {
           id: 7,
           name: "Cosmic Journey",
           artist: "Astro",
-          cover: "https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=300&h=300&fit=crop",
+          cover: "https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=300&h=300&fit=crop&auto=format",
           src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3"
         }
       ],
@@ -139,7 +139,7 @@ export const usePlayerStore = create<PlayerStore>()(
           return { isPlaying: true, progress: 0 };
         }
         if (state.isShuffle) {
-          let prevIndex = Math.floor(Math.random() * state.tracks.length);
+          const prevIndex = Math.floor(Math.random() * state.tracks.length);
           return { currentTrackIndex: prevIndex, isPlaying: true };
         }
         const prevIndex = state.currentTrackIndex - 1;
