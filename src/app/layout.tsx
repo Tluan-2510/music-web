@@ -4,6 +4,7 @@ import './globals.css';
 import Sidebar from '@/components/Sidebar';
 import PlayerBar from '@/components/PlayerBar';
 import AudioPlayer from '@/components/AudioPlayer';
+import AuthProvider from '@/components/AuthProvider';
 
 const outfit = Outfit({ subsets: ['latin'] });
 
@@ -20,14 +21,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={outfit.className}>
-        <div className="app-container">
-          <Sidebar />
-          <main className="main-content">
-            {children}
-          </main>
-          <PlayerBar />
-          <AudioPlayer />
-        </div>
+        <AuthProvider>
+          <div className="app-container">
+            <Sidebar />
+            <main className="main-content">
+              {children}
+            </main>
+            <PlayerBar />
+            <AudioPlayer />
+          </div>
+        </AuthProvider>
       </body>
     </html>
   );
