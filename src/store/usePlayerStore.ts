@@ -17,6 +17,7 @@ export interface PlayerState {
   progress: number;
   duration: number;
   favorites: (string | number)[];
+  recents: (string | number)[];
   isShuffle: boolean;
   repeatMode: 'off' | 'all' | 'one';
 }
@@ -33,6 +34,7 @@ export interface PlayerActions {
   setDuration: (duration: number) => void;
   toggleFavorite: (id: string | number) => void;
   setFavorites: (favorites: (string | number)[]) => void;
+  setRecents: (recents: (string | number)[]) => void;
   toggleShuffle: () => void;
   toggleRepeat: () => void;
 }
@@ -183,6 +185,7 @@ export const usePlayerStore = create<PlayerStore>()(
         }
       }),
       setFavorites: (favorites) => set({ favorites }),
+      setRecents: (recents) => set({ recents }),
       toggleShuffle: () => set((state) => ({ isShuffle: !state.isShuffle })),
       toggleRepeat: () => set((state) => {
         const modes: ('off' | 'all' | 'one')[] = ['off', 'all', 'one'];
