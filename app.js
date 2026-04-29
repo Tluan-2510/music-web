@@ -74,7 +74,7 @@ function init() {
 // Render Tracks
 function renderTracks() {
     trackGrid.innerHTML = tracks.map((track, index) => `
-        <div class="track-card glass" onclick="playTrack(${index})">
+        <div class="track-card glass ${index === state.currentTrackIndex ? 'active' : ''}" onclick="playTrack(${index})">
             <img src="${track.cover}" alt="${track.name}">
             <h4>${track.name}</h4>
             <p>${track.artist}</p>
@@ -90,6 +90,13 @@ function loadTrack(index) {
     currentArtistName.textContent = track.artist;
     currentTrackImg.style.backgroundImage = `url(${track.cover})`;
     currentTrackImg.style.backgroundSize = 'cover';
+    
+    // Update active class on track cards
+    const cards = document.querySelectorAll('.track-card');
+    if (cards.length > 0) {
+        cards.forEach(card => card.classList.remove('active'));
+        cards[index].classList.add('active');
+    }
 }
 
 function playTrack(index) {
