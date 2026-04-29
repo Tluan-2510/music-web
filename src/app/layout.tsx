@@ -5,6 +5,8 @@ import Sidebar from '@/components/Sidebar';
 import PlayerBar from '@/components/PlayerBar';
 import AudioPlayer from '@/components/AudioPlayer';
 import AuthProvider from '@/components/AuthProvider';
+import UserSync from '@/components/UserSync';
+
 
 const outfit = Outfit({ subsets: ['latin'] });
 
@@ -22,6 +24,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={outfit.className}>
         <AuthProvider>
+          <UserSync />
           <div className="app-container">
             <Sidebar />
             <main className="main-content">

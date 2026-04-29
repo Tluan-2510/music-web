@@ -32,6 +32,7 @@ export interface PlayerActions {
   setProgress: (progress: number) => void;
   setDuration: (duration: number) => void;
   toggleFavorite: (id: string | number) => void;
+  setFavorites: (favorites: (string | number)[]) => void;
   toggleShuffle: () => void;
   toggleRepeat: () => void;
 }
@@ -105,11 +106,24 @@ export const usePlayerStore = create<PlayerStore>()(
       progress: 0,
       duration: 0,
       favorites: [],
+      recents: [],
       isShuffle: false,
       repeatMode: 'off',
       
       setTracks: (tracks) => set({ tracks }),
-      playTrack: (index) => set({ currentTrackIndex: index, isPlaying: true }),
+      playTrack: (index) => {
+        set({ currentTrackIndex: index, isPlaying: true });
+        
+        const state = usePlayerStore.getState();
+        const track = state.tracks[index];
+        if (track) {
+          fetch('/api/user/recents', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ trackId: Number(track.id) })
+          }).catch(err => console.error('Failed to log recent track:', err));
+        }
+      },
       togglePlay: () => set((state) => ({ isPlaying: !state.isPlaying })),
       setIsPlaying: (isPlaying) => set({ isPlaying }),
       nextTrack: () => set((state) => {
@@ -153,12 +167,22 @@ export const usePlayerStore = create<PlayerStore>()(
       setDuration: (duration) => set({ duration }),
       toggleFavorite: (id) => set((state) => {
         const isFav = state.favorites.includes(id);
+        
+        // Background sync with DB if logged in
+        // We don't await here to keep UI responsive
+        fetch('/api/user/favorites', {
+          method: isFav ? 'DELETE' : 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ trackId: Number(id) })
+        }).catch(err => console.error('Failed to sync favorite with DB:', err));
+
         if (isFav) {
           return { favorites: state.favorites.filter(favId => favId !== id) };
         } else {
           return { favorites: [...state.favorites, id] };
         }
       }),
+      setFavorites: (favorites) => set({ favorites }),
       toggleShuffle: () => set((state) => ({ isShuffle: !state.isShuffle })),
       toggleRepeat: () => set((state) => {
         const modes: ('off' | 'all' | 'one')[] = ['off', 'all', 'one'];
