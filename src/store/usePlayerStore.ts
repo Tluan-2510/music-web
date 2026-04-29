@@ -35,8 +35,8 @@ export interface PlayerActions {
   toggleFavorite: (id: string | number) => void;
   setFavorites: (favorites: (string | number)[]) => void;
   setRecents: (recents: (string | number)[]) => void;
-  toggleShuffle: () => void;
   toggleRepeat: () => void;
+  getProxiedSrc: (src: string) => string;
 }
 
 export type PlayerStore = PlayerState & PlayerActions;
@@ -50,21 +50,21 @@ export const usePlayerStore = create<PlayerStore>()(
           name: "Neon Dreams",
           artist: "Stellar",
           cover: "https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?w=300&h=300&fit=crop&auto=format",
-          src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+          src: "https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba.mp3"
         },
         {
           id: 1,
           name: "Lofi Nights",
           artist: "Chill Master",
           cover: "https://images.unsplash.com/photo-1516280440614-37939bbacd81?w=300&h=300&fit=crop&auto=format",
-          src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
+          src: "https://www.learningcontainer.com/wp-content/uploads/2020/02/Sample-mp3-file.mp3"
         },
         {
           id: 2,
           name: "Electric Sky",
           artist: "Nova",
           cover: "https://images.unsplash.com/photo-1501630834273-4b5604d2ee31?w=300&h=300&fit=crop&auto=format",
-          src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"
+          src: "https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Tours/Enthusiast/Tours_-_01_-_Enthusiast.mp3"
         },
         {
           id: 3,
@@ -119,12 +119,19 @@ export const usePlayerStore = create<PlayerStore>()(
         const state = usePlayerStore.getState();
         const track = state.tracks[index];
         if (track) {
+          // Log recent track
           fetch('/api/user/recents', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ trackId: Number(track.id) })
           }).catch(err => console.error('Failed to log recent track:', err));
         }
+      },
+      getProxiedSrc: (src: string) => {
+        if (src.startsWith('http') && !src.includes('localhost') && !src.includes('127.0.0.1')) {
+          return `/api/proxy/audio?url=${encodeURIComponent(src)}`;
+        }
+        return src;
       },
       togglePlay: () => set((state) => ({ isPlaying: !state.isPlaying })),
       setIsPlaying: (isPlaying) => set({ isPlaying }),

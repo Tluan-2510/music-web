@@ -25,6 +25,7 @@ export default function AudioPlayer() {
 
   const audioInitialized = useRef(false);
 
+  const getProxiedSrc = usePlayerStore((state) => state.getProxiedSrc);
   const currentTrack = tracks[currentTrackIndex];
 
   useEffect(() => {
@@ -84,7 +85,7 @@ export default function AudioPlayer() {
       id="global-audio"
       crossOrigin="anonymous"
       ref={audioRef}
-      src={currentTrack?.src}
+      src={currentTrack ? getProxiedSrc(currentTrack.src) : undefined}
       onTimeUpdate={handleTimeUpdate}
       onLoadedMetadata={handleLoadedMetadata}
       onEnded={nextTrack}

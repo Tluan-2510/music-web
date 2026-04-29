@@ -6,7 +6,9 @@ export const dynamic = 'force-dynamic';
 
 export async function POST(req: NextRequest) {
   try {
-    const { name, email, password } = await req.json();
+    const body = await req.json();
+    console.log('Signup request body:', body);
+    const { name, email, password } = body;
 
     if (!name || !email || !password) {
       return NextResponse.json(
