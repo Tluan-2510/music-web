@@ -2,6 +2,7 @@
 
 import { usePlayerStore } from '@/store/usePlayerStore';
 import { FaSearch } from 'react-icons/fa';
+import Visualizer from '@/components/Visualizer';
 
 export default function Home() {
   const tracks = usePlayerStore((state) => state.tracks);
@@ -22,7 +23,8 @@ export default function Home() {
       </header>
 
       <section className="hero-section">
-        <div className="hero-card glass">
+        <div className="hero-card glass" style={{ position: 'relative' }}>
+          <Visualizer />
           <div className="hero-content">
             <span className="badge">FEATURED</span>
             <h1>Midnight Melodies</h1>

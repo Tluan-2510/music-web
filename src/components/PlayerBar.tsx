@@ -1,7 +1,7 @@
 'use client';
 
 import { usePlayerStore } from '@/store/usePlayerStore';
-import { FaHeart, FaRegHeart, FaStepBackward, FaPlay, FaPause, FaStepForward, FaVolumeUp } from 'react-icons/fa';
+import { FaHeart, FaRegHeart, FaStepBackward, FaPlay, FaPause, FaStepForward, FaVolumeUp, FaRandom, FaRedo } from 'react-icons/fa';
 
 function formatTime(seconds: number) {
   if (!seconds || isNaN(seconds)) return "0:00";
@@ -13,7 +13,9 @@ function formatTime(seconds: number) {
 export default function PlayerBar() {
   const { 
     tracks, currentTrackIndex, isPlaying, volume, progress, duration, favorites,
-    togglePlay, nextTrack, prevTrack, setVolume, setProgress, toggleFavorite
+    isShuffle, repeatMode,
+    togglePlay, nextTrack, prevTrack, setVolume, setProgress, toggleFavorite,
+    toggleShuffle, toggleRepeat
   } = usePlayerStore();
 
   const currentTrack = tracks[currentTrackIndex];
@@ -66,11 +68,36 @@ export default function PlayerBar() {
 
       <div className="player-controls">
         <div className="control-btns">
+          <button 
+            className="btn-icon" 
+            onClick={toggleShuffle} 
+            style={{ color: isShuffle ? 'var(--primary-accent)' : 'var(--text-secondary)' }}
+          >
+            <FaRandom />
+          </button>
           <button className="btn-icon" onClick={prevTrack}><FaStepBackward /></button>
           <button className="play-btn" onClick={togglePlay}>
             {isPlaying ? <FaPause /> : <FaPlay />}
           </button>
           <button className="btn-icon" onClick={nextTrack}><FaStepForward /></button>
+          <button 
+            className="btn-icon" 
+            onClick={toggleRepeat}
+            style={{ 
+              color: repeatMode !== 'off' ? 'var(--primary-accent)' : 'var(--text-secondary)',
+              position: 'relative'
+            }}
+          >
+            <FaRedo />
+            {repeatMode === 'one' && (
+              <span style={{ 
+                position: 'absolute', top: '-8px', right: '-8px', 
+                fontSize: '0.6rem', background: 'var(--primary-accent)', 
+                color: 'white', borderRadius: '50%', width: '14px', height: '14px', 
+                display: 'flex', alignItems: 'center', justifyContent: 'center' 
+              }}>1</span>
+            )}
+          </button>
         </div>
         <div className="progress-container">
           <span>{formatTime(progress)}</span>

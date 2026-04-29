@@ -3,6 +3,13 @@
 import { useEffect, useRef } from 'react';
 import { usePlayerStore } from '@/store/usePlayerStore';
 
+// Add global declaration for the analyser node
+declare global {
+  interface Window {
+    globalAudioAnalyser?: AnalyserNode;
+  }
+}
+
 export default function AudioPlayer() {
   const audioRef = useRef<HTMLAudioElement>(null);
   
@@ -15,6 +22,8 @@ export default function AudioPlayer() {
   const setProgress = usePlayerStore((state) => state.setProgress);
   const setDuration = usePlayerStore((state) => state.setDuration);
   const nextTrack = usePlayerStore((state) => state.nextTrack);
+
+  const audioInitialized = useRef(false);
 
   const currentTrack = tracks[currentTrackIndex];
 
@@ -29,6 +38,26 @@ export default function AudioPlayer() {
     if (!audio) return;
 
     if (isPlaying) {
+      if (!audioInitialized.current) {
+        // Initialize Web Audio API
+        try {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
+          const audioCtx = new AudioContextClass();
+          const analyser = audioCtx.createAnalyser();
+          analyser.fftSize = 256;
+          
+          const source = audioCtx.createMediaElementSource(audio);
+          source.connect(analyser);
+          analyser.connect(audioCtx.destination);
+          
+          window.globalAudioAnalyser = analyser;
+          audioInitialized.current = true;
+        } catch (err) {
+          console.error("Audio Context initialization failed:", err);
+        }
+      }
+
       audio.play().catch((e) => {
         console.error("Playback failed:", e);
         setIsPlaying(false);
@@ -53,6 +82,7 @@ export default function AudioPlayer() {
   return (
     <audio
       id="global-audio"
+      crossOrigin="anonymous"
       ref={audioRef}
       src={currentTrack?.src}
       onTimeUpdate={handleTimeUpdate}

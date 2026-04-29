@@ -435,3 +435,64 @@ body {
     background: white;
     border-radius: 10px;
 }
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .app-container {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr auto;
+        padding: 8px;
+    }
+
+    .sidebar {
+        display: none; /* Hide sidebar completely or use a hamburger menu */
+    }
+
+    .main-content {
+        grid-column: 1 / -1;
+        grid-row: 2 / 3;
+    }
+
+    .player-bar {
+        grid-column: 1 / -1;
+        grid-row: 3 / 4;
+        padding: 0 12px;
+        flex-direction: column;
+        justify-content: center;
+        height: 120px;
+        gap: 12px;
+    }
+
+    .current-track {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .player-controls {
+        width: 100%;
+    }
+
+    .volume-controls {
+        display: none; /* Hide volume on mobile to save space */
+    }
+
+    .search-bar {
+        width: 100%;
+    }
+
+    .hero-card {
+        flex-direction: column;
+        height: auto;
+        padding: 24px;
+        text-align: center;
+    }
+
+    .hero-content {
+        max-width: 100%;
+    }
+
+    .track-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+}

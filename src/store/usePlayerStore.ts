@@ -17,6 +17,8 @@ export interface PlayerState {
   progress: number;
   duration: number;
   favorites: (string | number)[];
+  isShuffle: boolean;
+  repeatMode: 'off' | 'all' | 'one';
 }
 
 export interface PlayerActions {
@@ -30,6 +32,8 @@ export interface PlayerActions {
   setProgress: (progress: number) => void;
   setDuration: (duration: number) => void;
   toggleFavorite: (id: string | number) => void;
+  toggleShuffle: () => void;
+  toggleRepeat: () => void;
 }
 
 export type PlayerStore = PlayerState & PlayerActions;
@@ -101,19 +105,43 @@ export const usePlayerStore = create<PlayerStore>()(
       progress: 0,
       duration: 0,
       favorites: [],
+      isShuffle: false,
+      repeatMode: 'off',
       
       setTracks: (tracks) => set({ tracks }),
       playTrack: (index) => set({ currentTrackIndex: index, isPlaying: true }),
       togglePlay: () => set((state) => ({ isPlaying: !state.isPlaying })),
       setIsPlaying: (isPlaying) => set({ isPlaying }),
       nextTrack: () => set((state) => {
+        if (state.repeatMode === 'one') {
+          return { isPlaying: true }; // Audio will restart itself, or we can force it by not changing index
+        }
+        if (state.isShuffle) {
+          let nextIndex = Math.floor(Math.random() * state.tracks.length);
+          while (nextIndex === state.currentTrackIndex && state.tracks.length > 1) {
+            nextIndex = Math.floor(Math.random() * state.tracks.length);
+          }
+          return { currentTrackIndex: nextIndex, isPlaying: true };
+        }
+        
         const nextIndex = state.currentTrackIndex + 1;
-        return { 
-          currentTrackIndex: nextIndex >= state.tracks.length ? 0 : nextIndex,
-          isPlaying: true 
-        };
+        if (nextIndex >= state.tracks.length) {
+          if (state.repeatMode === 'all') {
+            return { currentTrackIndex: 0, isPlaying: true };
+          }
+          return { currentTrackIndex: 0, isPlaying: false, progress: 0 };
+        }
+        return { currentTrackIndex: nextIndex, isPlaying: true };
       }),
       prevTrack: () => set((state) => {
+        if (state.progress > 3) {
+          // If song has played for more than 3 seconds, previous usually restarts current track
+          return { isPlaying: true, progress: 0 };
+        }
+        if (state.isShuffle) {
+          let prevIndex = Math.floor(Math.random() * state.tracks.length);
+          return { currentTrackIndex: prevIndex, isPlaying: true };
+        }
         const prevIndex = state.currentTrackIndex - 1;
         return { 
           currentTrackIndex: prevIndex < 0 ? state.tracks.length - 1 : prevIndex,
@@ -130,11 +158,22 @@ export const usePlayerStore = create<PlayerStore>()(
         } else {
           return { favorites: [...state.favorites, id] };
         }
+      }),
+      toggleShuffle: () => set((state) => ({ isShuffle: !state.isShuffle })),
+      toggleRepeat: () => set((state) => {
+        const modes: ('off' | 'all' | 'one')[] = ['off', 'all', 'one'];
+        const nextMode = modes[(modes.indexOf(state.repeatMode) + 1) % modes.length];
+        return { repeatMode: nextMode };
       })
     })),
     {
       name: 'aura-music-storage',
-      partialize: (state) => ({ favorites: state.favorites, volume: state.volume }),
+      partialize: (state) => ({ 
+        favorites: state.favorites, 
+        volume: state.volume,
+        isShuffle: state.isShuffle,
+        repeatMode: state.repeatMode
+      }),
     }
   )
 );
