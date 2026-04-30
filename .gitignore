@@ -44,3 +44,5 @@ next-env.d.ts
 dev.db
 .env.local
 server_log.txt
+.agent/
+.gemini/
