@@ -33,12 +33,8 @@ export default function PlayerBar() {
     }
   };
 
-  const handleVolume = (e: React.MouseEvent<HTMLDivElement>) => {
-    const bar = e.currentTarget;
-    const clickX = e.nativeEvent.offsetX;
-    const width = bar.clientWidth;
-    const newVol = clickX / width;
-    setVolume(newVol);
+  const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setVolume(parseFloat(e.target.value));
   };
 
   const progressPercent = duration > 0 ? (progress / duration) * 100 : 0;
@@ -110,7 +106,15 @@ export default function PlayerBar() {
 
       <div className="volume-controls">
         <FaVolumeUp />
-        <div className="volume-bar" onClick={handleVolume}>
+        <div className="volume-bar">
+          <input 
+            type="range" 
+            min="0" 
+            max="1" 
+            step="0.01" 
+            value={volume} 
+            onChange={handleVolumeChange} 
+          />
           <div className="volume-fill" style={{ width: `${volumePercent}%` }}></div>
         </div>
       </div>

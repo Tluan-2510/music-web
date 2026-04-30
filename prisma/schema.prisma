@@ -16,6 +16,7 @@ model User {
   emailVerified DateTime?
   image         String?
   password      String?
+  preferences   String?   // Comma-separated genres: "Pop,Rock,Jazz"
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 

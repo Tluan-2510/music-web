@@ -2,8 +2,10 @@
 
 import { usePlayerStore } from '@/store/usePlayerStore';
 import { FaHeart, FaPlay } from 'react-icons/fa';
+import { useRouter } from 'next/navigation';
 
 export default function LibraryPage() {
+  const router = useRouter();
   const tracks = usePlayerStore((state) => state.tracks);
   const favorites = usePlayerStore((state) => state.favorites);
   const playTrack = usePlayerStore((state) => state.playTrack);
@@ -15,9 +17,9 @@ export default function LibraryPage() {
     <div style={{ animation: 'fadeUp 0.8s ease-out forwards', paddingTop: '20px' }}>
       <header className="main-header" style={{ marginBottom: '40px' }}>
         <h1 style={{ fontSize: '2.5rem' }}>Your Library</h1>
-        <div className="user-profile">
+        <div className="user-profile" onClick={() => router.push('/profile')}>
+          <div className="avatar">P</div>
           <span>Premium User</span>
-          <div className="avatar"></div>
         </div>
       </header>
 

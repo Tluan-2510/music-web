@@ -52,15 +52,21 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     }),
   ],
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user, trigger, session }) {
       if (user) {
+        const dbUser = await db.user.findUnique({ where: { id: user.id } });
         token.id = user.id;
+        token.preferences = dbUser?.preferences;
+      }
+      if (trigger === "update" && session?.preferences) {
+        token.preferences = session.preferences;
       }
       return token;
     },
     async session({ session, token }) {
       if (token && session.user) {
         session.user.id = token.id as string;
+        (session.user as any).preferences = token.preferences;
       }
       return session;
     },

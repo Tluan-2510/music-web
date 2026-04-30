@@ -5,6 +5,7 @@ export interface Track {
   id: string | number;
   name: string;
   artist: string;
+  genre: string;
   cover: string;
   src: string;
 }
@@ -49,6 +50,7 @@ export const usePlayerStore = create<PlayerStore>()(
           id: 0,
           name: "Neon Dreams",
           artist: "Stellar",
+          genre: "edm",
           cover: "https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?w=300&h=300&fit=crop&auto=format",
           src: "https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba.mp3"
         },
@@ -56,6 +58,7 @@ export const usePlayerStore = create<PlayerStore>()(
           id: 1,
           name: "Lofi Nights",
           artist: "Chill Master",
+          genre: "lofi",
           cover: "https://images.unsplash.com/photo-1516280440614-37939bbacd81?w=300&h=300&fit=crop&auto=format",
           src: "https://www.learningcontainer.com/wp-content/uploads/2020/02/Sample-mp3-file.mp3"
         },
@@ -63,6 +66,7 @@ export const usePlayerStore = create<PlayerStore>()(
           id: 2,
           name: "Electric Sky",
           artist: "Nova",
+          genre: "pop",
           cover: "https://images.unsplash.com/photo-1501630834273-4b5604d2ee31?w=300&h=300&fit=crop&auto=format",
           src: "https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Tours/Enthusiast/Tours_-_01_-_Enthusiast.mp3"
         },
@@ -70,6 +74,7 @@ export const usePlayerStore = create<PlayerStore>()(
           id: 3,
           name: "Deep Ocean",
           artist: "Aquatic",
+          genre: "jazz",
           cover: "https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=300&h=300&fit=crop&auto=format",
           src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3"
         },
@@ -77,6 +82,7 @@ export const usePlayerStore = create<PlayerStore>()(
           id: 4,
           name: "Mountain Echoes",
           artist: "Naturals",
+          genre: "classical",
           cover: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=300&h=300&fit=crop&auto=format",
           src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3"
         },
@@ -84,6 +90,7 @@ export const usePlayerStore = create<PlayerStore>()(
           id: 5,
           name: "City Lights",
           artist: "Urban Beats",
+          genre: "hiphop",
           cover: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=300&h=300&fit=crop&auto=format",
           src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3"
         },
@@ -91,6 +98,7 @@ export const usePlayerStore = create<PlayerStore>()(
           id: 6,
           name: "Desert Wind",
           artist: "Sandstorm",
+          genre: "indie",
           cover: "https://images.unsplash.com/photo-1473580044384-7ba9967e16a0?w=300&h=300&fit=crop&auto=format",
           src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3"
         },
@@ -98,6 +106,7 @@ export const usePlayerStore = create<PlayerStore>()(
           id: 7,
           name: "Cosmic Journey",
           artist: "Astro",
+          genre: "edm",
           cover: "https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=300&h=300&fit=crop&auto=format",
           src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3"
         }

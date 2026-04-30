@@ -1,36 +1,76 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎵 Aura Music | Premium Music Experience
 
-## Getting Started
+Aura Music is a high-end, glassmorphic music player designed for a premium listening experience. Built with Next.js 15, Tailwind CSS, and Prisma, it features a stunning UI with dynamic animations and a robust backend.
 
-First, run the development server:
+![Aura Music Banner](public/banner.png) *(Note: Add your actual banner image path here)*
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## ✨ Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **💎 Premium Glassmorphism**: A state-of-the-art UI design focusing on transparency, blurs, and vibrant gradients.
+- **🎧 Seamless Playback**: Advanced player controls with volume management and track seeking.
+- **👤 Dynamic User Profiles**: Personalized identity hub with music stats, genre preferences, and account management.
+- **📱 Fully Responsive**: Optimized for desktop, tablet, and mobile devices.
+- **🔒 Secure Authentication**: Integrated with NextAuth.js for safe and easy sign-in.
+- **💾 Real-time Database**: Powered by SQLite (via Prisma) for tracking favorites and listening history.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🚀 Tech Stack
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Frontend**: [Next.js 15](https://nextjs.org/) (App Router), [Tailwind CSS](https://tailwindcss.com/)
+- **Icons**: [React Icons](https://react-icons.github.io/react-icons/)
+- **Database**: [Prisma ORM](https://www.prisma.io/) with SQLite
+- **Auth**: [NextAuth.js](https://next-auth.js.org/)
+- **State Management**: [Zustand](https://zustand-demo.pmnd.rs/)
 
-## Learn More
+## 🛠️ Getting Started
 
-To learn more about Next.js, take a look at the following resources:
+### Prerequisites
+- Node.js 18.x or later
+- npm or yarn
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Installation
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. **Clone the repository**:
+   ```bash
+   git clone <your-repo-url>
+   cd music-web
+   ```
 
-## Deploy on Vercel
+2. **Install dependencies**:
+   ```bash
+   npm install
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3. **Set up Environment Variables**:
+   Create a `.env` file in the root directory:
+   ```env
+   DATABASE_URL="file:./dev.db"
+   NEXTAUTH_SECRET="your-secret-key"
+   NEXTAUTH_URL="http://localhost:3000"
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+4. **Initialize Database**:
+   ```bash
+   npx prisma generate
+   npx prisma db push
+   ```
+
+5. **Run the development server**:
+   ```bash
+   npm run dev
+   ```
+
+Open [http://localhost:3000](http://localhost:3000) to experience Aura Music.
+
+## 🎨 Design System
+
+Aura Music follows a strict design system based on:
+- **Colors**: Deep dark backgrounds (`#0a0a0c`) with vibrant purple and blue accents.
+- **Typography**: [Outfit](https://fonts.google.com/specimen/Outfit) for a modern, clean look.
+- **Effects**: Backdrop blurs, subtle borders, and soft glows.
+
+## 📄 License
+
+This project is licensed under the MIT License.
+
+---
+Developed with ❤️ by the Aura Music Team.

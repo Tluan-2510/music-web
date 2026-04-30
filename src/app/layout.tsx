@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Outfit } from 'next/font/google';
+import { Be_Vietnam_Pro } from 'next/font/google';
 import './globals.css';
 import Sidebar from '@/components/Sidebar';
 import PlayerBar from '@/components/PlayerBar';
@@ -8,7 +8,12 @@ import AuthProvider from '@/components/AuthProvider';
 import UserSync from '@/components/UserSync';
 
 
-const outfit = Outfit({ subsets: ['latin'] });
+import ClientLayout from '@/components/ClientLayout';
+
+const beVietnamPro = Be_Vietnam_Pro({ 
+  subsets: ['vietnamese', 'latin'],
+  weight: ['300', '400', '500', '600', '700', '800']
+});
 
 export const metadata: Metadata = {
   title: 'Aura Music | Premium Listening Experience',
@@ -22,17 +27,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={outfit.className}>
+      <body className={beVietnamPro.className}>
         <AuthProvider>
-          <UserSync />
-          <div className="app-container">
-            <Sidebar />
-            <main className="main-content">
-              {children}
-            </main>
-            <PlayerBar />
-            <AudioPlayer />
-          </div>
+          <ClientLayout>{children}</ClientLayout>
         </AuthProvider>
       </body>
     </html>
